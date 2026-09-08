@@ -4,6 +4,22 @@ import { useRef, useState } from "react";
 import Ladder from "@/components/Ladder";
 import { LEVEL_COPY, type Diagnosis } from "@/lib/diagnosis";
 
+/** One click fills both fields and submits. Someone evaluating this should not
+ *  have to invent a focus area before they can see what the thing does. */
+const EXAMPLES = [
+  { focus: "lawn care", statement: "Most people mow on weekends" },
+  {
+    focus: "sneaker reselling",
+    statement:
+      "Hyped drops resell for less than quiet ones, because everyone who bought them was planning to flip them too",
+  },
+  {
+    focus: "youth soccer",
+    statement:
+      "Club soccer before age 12 should not exist. It burns kids out and mostly sells parents hope.",
+  },
+];
+
 type Attempt = {
   n: number;
   statement: string;
@@ -25,9 +41,21 @@ export default function Home() {
     (a) => a.diagnosis.classification !== "FACT",
   ).length;
 
-  async function submit(event: React.FormEvent) {
+  function submit(event: React.FormEvent) {
     event.preventDefault();
-    if (pending || !domain.trim() || !statement.trim()) return;
+    run(domain, statement);
+  }
+
+  function runExample(example: (typeof EXAMPLES)[number]) {
+    setDomain(example.focus);
+    setStatement(example.statement);
+    run(example.focus, example.statement);
+  }
+
+  async function run(rawDomain: string, rawStatement: string) {
+    const domainValue = rawDomain.trim();
+    const submitted = rawStatement.trim();
+    if (pending || !domainValue || !submitted) return;
 
     setPending(true);
     setError(null);
@@ -36,7 +64,7 @@ export default function Home() {
       const response = await fetch("/api/diagnose", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ domain, statement }),
+        body: JSON.stringify({ domain: domainValue, statement: submitted }),
       });
       const body = await response.json();
 
@@ -45,7 +73,6 @@ export default function Home() {
         return;
       }
 
-      const submitted = statement.trim();
       setAttempts((prior) => [
         ...prior,
         {
@@ -109,7 +136,7 @@ export default function Home() {
               className="whitespace-nowrap text-[13px] tabular-nums"
               style={{ color: "var(--ink-2)" }}
             >
-              {aboveFact} above fact
+              {aboveFact} past fact
             </span>
           </div>
         </div>
@@ -117,11 +144,45 @@ export default function Home() {
 
       <main className="mx-auto flex max-w-[620px] flex-col pb-16 pl-[50px] pr-5 pt-8">
         {attempts.length === 0 && (
-          <p className="mb-7 max-w-[52ch] text-[17px] leading-[1.55]">
-            Write down something you believe is an insight about your domain.
-            This tells you which level it actually sits at, and asks you a
-            question. You do the rewriting.
-          </p>
+          <div className="mb-7">
+            <p className="max-w-[52ch] text-[17px] leading-[1.55]">
+              Anyone can look up a fact. To prove you actually know your field,
+              you need a take someone could argue with. Write one below and find
+              out what you have actually got.
+            </p>
+
+            <p className="mb-2 mt-6 text-[14px] font-semibold">
+              Or run one of these
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {EXAMPLES.map((example) => (
+                <button
+                  key={example.focus}
+                  type="button"
+                  onClick={() => runExample(example)}
+                  disabled={pending}
+                  className="max-w-full rounded-full px-3.5 py-2 text-left text-[13px] leading-[1.35] disabled:opacity-40"
+                  style={{
+                    background: "var(--paper)",
+                    border: "1px solid var(--rule)",
+                  }}
+                >
+                  <span
+                    className="font-semibold"
+                    style={{ color: "var(--accent)" }}
+                  >
+                    {example.focus}
+                  </span>
+                  <span style={{ color: "var(--ink-2)" }}> · </span>
+                  <span>
+                    {example.statement.length > 52
+                      ? example.statement.slice(0, 52).trimEnd() + "…"
+                      : example.statement}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
         )}
 
         {latest && (
@@ -140,7 +201,7 @@ export default function Home() {
                 className="text-[13px] font-semibold"
                 style={{ color: "#a9a9ff" }}
               >
-                Answer this, then rewrite
+                Answer this, then try again
               </p>
               <p className="mt-1.5 text-[16px] leading-[1.55]">
                 {latest.diagnosis.question}
@@ -153,13 +214,13 @@ export default function Home() {
 
         <form onSubmit={submit} className={`order-2 ${latest ? "pt-9" : ""}`}>
           <label htmlFor="domain" className="block text-[14px] font-semibold">
-            Your domain
+            Your focus area
           </label>
           <input
             id="domain"
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
-            placeholder="lawn care business"
+            placeholder="lawn care"
             autoComplete="off"
             className="mt-1.5 w-full rounded-[8px] px-3 py-2.5 text-[15px] outline-none"
             style={{
@@ -174,7 +235,7 @@ export default function Home() {
             className="mt-5 block text-[14px] font-semibold"
           >
             {attempts.length === 0
-              ? "A statement you think is an insight"
+              ? "Something you believe about it"
               : "Your rewrite"}
           </label>
           <textarea
@@ -202,7 +263,7 @@ export default function Home() {
               className="rounded-[8px] px-4 py-2.5 text-[15px] font-semibold text-white transition-opacity disabled:opacity-40"
               style={{ background: "var(--accent)" }}
             >
-              {pending ? "Checking…" : "Check the level"}
+              {pending ? "Checking…" : "Check it"}
             </button>
             {error && (
               <p

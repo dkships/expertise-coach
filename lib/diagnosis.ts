@@ -8,15 +8,15 @@ export type Level = (typeof LEVELS)[number];
 export const LEVEL_COPY: Record<Level, { name: string; test: string }> = {
   FACT: {
     name: "Fact",
-    test: "Checkable. Someone could look it up and settle it.",
+    test: "Anyone can look it up. Nobody argues with it.",
   },
   INSIGHT: {
     name: "Insight",
-    test: "Your reading of the facts. A careful person could read the same facts differently.",
+    test: "Your read on the facts. Someone just as smart could read them differently.",
   },
   "POINT OF VIEW": {
-    name: "Point of view",
-    test: "A position you would have to defend. Someone who knows the domain disagrees with you.",
+    name: "Spiky point of view",
+    test: "You would have to defend it. Someone who knows your field thinks you are wrong.",
   },
 };
 

@@ -66,7 +66,7 @@ export default function Ladder({
                     className="text-[13px] font-medium"
                     style={{ color: "var(--accent)" }}
                   >
-                    Your statement landed here
+                    You landed here
                   </span>
                 )}
               </div>
@@ -102,7 +102,7 @@ export default function Ladder({
                 }}
               >
                 <span style={{ color: "var(--ink-2)" }}>
-                  Elsewhere in your domain:{" "}
+                  Another example from your field:{" "}
                 </span>
                 {diagnosis.examples[EXAMPLE_KEY[level]]}
               </p>
