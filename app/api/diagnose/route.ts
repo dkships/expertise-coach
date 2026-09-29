@@ -7,11 +7,15 @@ import { SYSTEM } from "@/lib/system-prompt";
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
-// Benchmarked 2026-09-07 over 15 runs on labelled cases: 15/15 correct,
-// median 5.5s, max 7.0s. Opus 5 scored the same and took ~4s longer;
-// claude-sonnet-4-6 was both slower (9.2s median) and less accurate.
-// Thinking must be disabled explicitly — omitting it runs adaptive on Sonnet 5.
-const MODEL = "claude-sonnet-5";
+// Re-benchmarked 2026-09-29 on 23 labelled cases x2: Sonnet 5.5 at adaptive
+// "low" got 46/46 with the disagreement-test clarification in the system
+// prompt (Sonnet 5 with thinking off: 41/46), p50 3.6s, p95 4.9s. At "low" it
+// skips thinking on these requests. Sonnet 5.5 rejects thinking "disabled".
+const MODEL = "claude-sonnet-5-5";
+
+// A few Sonnet 5.5 calls stalled for 30-60s in testing. Fail fast with a
+// retryable error inside maxDuration instead of letting the function die.
+const CALL_TIMEOUT_MS = 12_000;
 
 export async function POST(request: Request) {
   let domain: unknown;
@@ -45,13 +49,13 @@ export async function POST(request: Request) {
     );
   }
 
-  const client = new Anthropic();
+  const client = new Anthropic({ timeout: CALL_TIMEOUT_MS, maxRetries: 1 });
 
   try {
     const response = await client.messages.parse({
       model: MODEL,
       max_tokens: 4096,
-      thinking: { type: "disabled" },
+      thinking: { type: "adaptive" },
       system: SYSTEM,
       messages: [
         {
@@ -61,7 +65,7 @@ export async function POST(request: Request) {
       ],
       output_config: {
         format: zodOutputFormat(DiagnosisSchema),
-        effort: "medium",
+        effort: "low",
       },
     });
 

@@ -49,15 +49,26 @@ thing being taught, so they must not drift between attempts.
 
 Benchmarked over labelled cases where the correct level is known, on this prompt:
 
+Re-run 2026-09-29 on 23 cases x2 (labels adjudicated by an Opus 5.5 judge), after
+adding one sentence to the prompt's disagreement test: a causal explanation stays an
+insight unless it also takes a side.
+
+| Model | Thinking | Accuracy | Median | p95 |
+|---|---|---|---|---|
+| **claude-sonnet-5-5** | **adaptive, low** | **46/46** | **3.6s** | **4.9s** |
+| claude-sonnet-5 | off | 41/46 | 4.9s | 6.1s |
+
+Earlier run, 2026-09-07, on the prompt before that sentence:
+
 | Model | Thinking | Accuracy | Median | Max |
 |---|---|---|---|---|
-| **claude-sonnet-5** | **off** | **15/15** | **5.5s** | **7.0s** |
+| claude-sonnet-5 | off | 15/15 | 5.5s | 7.0s |
 | claude-sonnet-5 | adaptive, low | 14/15 | 5.8s | 9.1s |
 | claude-opus-5 | adaptive, low | 5/6 | 8.3s | 10.7s |
 | claude-opus-5 | adaptive, medium | 5/6 | 9.9s | 10.9s |
 | claude-sonnet-4-6 | off | 4/6 | 9.2s | 11.3s |
 
-Sonnet 5 with thinking off wins on both axes. Opus 5 matched it on accuracy and cost
+In that run, Sonnet 5 with thinking off won on both axes. Opus 5 matched it on accuracy and cost
 ~4s per call, which is the difference between a demo that feels instant and one that
 looks broken. Sonnet 4.6 was the worst option tested — slower *and* the only model to
 misread a causal reading as a position, which is exactly the distinction being taught.
