@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "eval": "node --env-file-if-exists=.env.local evals/bench.mjs",
+    "eval:analyze": "node evals/analyze.mjs",
+    "eval:judge": "node --env-file-if-exists=.env.local evals/judge.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.124.0",

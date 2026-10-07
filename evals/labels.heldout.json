@@ -1,0 +1,203 @@
+[
+ {
+  "id": "h-lemonade",
+  "d": "lemonade stand",
+  "s": "Lemonade sells faster on days above 85 degrees",
+  "author": "FACT",
+  "judge": "FACT",
+  "gold": "FACT",
+  "ambiguous": true,
+  "accept": [
+   "FACT",
+   "INSIGHT"
+  ]
+ },
+ {
+  "id": "h-podcast",
+  "d": "podcasting",
+  "s": "Most podcasts stop after seven episodes because the host runs out of ideas, not out of listeners",
+  "author": "INSIGHT",
+  "judge": "INSIGHT",
+  "gold": "INSIGHT",
+  "ambiguous": true,
+  "accept": [
+   "INSIGHT",
+   "FACT",
+   "POINT OF VIEW"
+  ]
+ },
+ {
+  "id": "h-hoodie",
+  "d": "custom clothing",
+  "s": "Print-on-demand hoodies are a trap for beginners: the margins are so thin that you are really working for the printer",
+  "author": "POINT OF VIEW",
+  "judge": "POINT OF VIEW",
+  "gold": "POINT OF VIEW",
+  "ambiguous": false,
+  "accept": [
+   "POINT OF VIEW"
+  ]
+ },
+ {
+  "id": "h-etsy-tags",
+  "d": "selling crafts online",
+  "s": "Etsy lets sellers add up to thirteen tags to a listing",
+  "author": "FACT",
+  "judge": "FACT",
+  "gold": "FACT",
+  "ambiguous": false,
+  "accept": [
+   "FACT"
+  ]
+ },
+ {
+  "id": "h-lawn-price",
+  "d": "lawn care",
+  "s": "Customers who ask for a quote and get one within an hour almost always sign, because speed reads as reliability",
+  "author": "INSIGHT",
+  "judge": "INSIGHT",
+  "gold": "INSIGHT",
+  "ambiguous": true,
+  "accept": [
+   "INSIGHT",
+   "POINT OF VIEW"
+  ]
+ },
+ {
+  "id": "h-twitch",
+  "d": "live streaming",
+  "s": "New streamers should stop trying to grow and just play to the ten people who show up; growth chasing kills the community that would have grown on its own",
+  "author": "POINT OF VIEW",
+  "judge": "POINT OF VIEW",
+  "gold": "POINT OF VIEW",
+  "ambiguous": false,
+  "accept": [
+   "POINT OF VIEW"
+  ]
+ },
+ {
+  "id": "h-bikes",
+  "d": "bike repair",
+  "s": "Spring is the busiest season for bike repair shops",
+  "author": "FACT",
+  "judge": "FACT",
+  "gold": "FACT",
+  "ambiguous": false,
+  "accept": [
+   "FACT"
+  ]
+ },
+ {
+  "id": "h-flipclothes",
+  "d": "thrift flipping",
+  "s": "Brand-name items sell quickly in thrift flipping because buyers use the brand as a shortcut for quality when they cannot inspect the item",
+  "author": "INSIGHT",
+  "judge": "INSIGHT",
+  "gold": "INSIGHT",
+  "ambiguous": false,
+  "accept": [
+   "INSIGHT"
+  ]
+ },
+ {
+  "id": "h-unpaid",
+  "d": "teen entrepreneurship",
+  "s": "Teens should never work for free to build experience; unpaid work teaches clients that your time has no value",
+  "author": "POINT OF VIEW",
+  "judge": "POINT OF VIEW",
+  "gold": "POINT OF VIEW",
+  "ambiguous": false,
+  "accept": [
+   "POINT OF VIEW"
+  ]
+ },
+ {
+  "id": "h-snackcart",
+  "d": "school snack sales",
+  "s": "Selling snacks at school is allowed only in some districts",
+  "author": "FACT",
+  "judge": "FACT",
+  "gold": "FACT",
+  "ambiguous": false,
+  "accept": [
+   "FACT"
+  ]
+ },
+ {
+  "id": "h-newsletter",
+  "d": "newsletters",
+  "s": "Newsletters with short subject lines get opened less when readers already trust the sender, since the subject line stops being the deciding factor",
+  "author": "INSIGHT",
+  "judge": "INSIGHT",
+  "gold": "INSIGHT",
+  "ambiguous": true,
+  "accept": [
+   "INSIGHT",
+   "POINT OF VIEW"
+  ]
+ },
+ {
+  "id": "h-braids",
+  "d": "hair braiding business",
+  "s": "Booking deposits are the only thing that fixes no-shows; reminders and policies mostly do nothing",
+  "author": "POINT OF VIEW",
+  "judge": "POINT OF VIEW",
+  "gold": "POINT OF VIEW",
+  "ambiguous": true,
+  "accept": [
+   "POINT OF VIEW",
+   "INSIGHT"
+  ]
+ },
+ {
+  "id": "h-tshirt",
+  "d": "school spirit merchandise",
+  "s": "Merch that students can personalize sells more than merch with a fixed design, because it becomes about them instead of the school",
+  "author": "INSIGHT",
+  "judge": "INSIGHT",
+  "gold": "INSIGHT",
+  "ambiguous": false,
+  "accept": [
+   "INSIGHT"
+  ]
+ },
+ {
+  "id": "h-yt-shorts",
+  "d": "YouTube channel",
+  "s": "Shorts hurt small channels more than they help, because the viewers they bring never watch the longer videos",
+  "author": "POINT OF VIEW",
+  "judge": "POINT OF VIEW",
+  "gold": "POINT OF VIEW",
+  "ambiguous": true,
+  "accept": [
+   "POINT OF VIEW",
+   "INSIGHT"
+  ]
+ },
+ {
+  "id": "h-paper",
+  "d": "paper route",
+  "s": "A paper route usually pays by the number of papers delivered",
+  "author": "FACT",
+  "judge": "FACT",
+  "gold": "FACT",
+  "ambiguous": false,
+  "accept": [
+   "FACT"
+  ]
+ },
+ {
+  "id": "h-camp",
+  "d": "summer camps",
+  "s": "Parents pick camps by the director's personality at the tour, more than by the activities list",
+  "author": "INSIGHT",
+  "judge": "INSIGHT",
+  "gold": "INSIGHT",
+  "ambiguous": true,
+  "accept": [
+   "INSIGHT",
+   "FACT",
+   "POINT OF VIEW"
+  ]
+ }
+]

@@ -1,0 +1,140 @@
+[
+ {
+  "id": "lawn",
+  "d": "lawn care",
+  "s": "Most people mow on weekends",
+  "mine": "FACT"
+ },
+ {
+  "id": "sneakers",
+  "d": "sneaker reselling",
+  "s": "Hyped drops resell for less than quiet ones, because everyone who bought them was planning to flip them too",
+  "mine": "INSIGHT"
+ },
+ {
+  "id": "soccer",
+  "d": "youth soccer",
+  "s": "Club soccer before age 12 should not exist. It burns kids out and mostly sells parents hope.",
+  "mine": "POINT OF VIEW"
+ },
+ {
+  "id": "sourdough",
+  "d": "baking",
+  "s": "Sourdough takes longer to make than regular bread",
+  "mine": "FACT"
+ },
+ {
+  "id": "dogwalk",
+  "d": "dog walking",
+  "s": "Clients who book recurring walks cancel less often than one-off bookings, which suggests they think of it as a routine and not a favor",
+  "mine": "INSIGHT"
+ },
+ {
+  "id": "socialpost",
+  "d": "social media for small shops",
+  "s": "Posting every day is a trap: small shops should post twice a week and spend the rest of the time answering comments, and anyone who tells you otherwise is selling a scheduling tool",
+  "mine": "POINT OF VIEW"
+ },
+ {
+  "id": "filament",
+  "d": "3D printing",
+  "s": "Prices for filament dropped after more brands entered the market",
+  "mine": "FACT"
+ },
+ {
+  "id": "tutoring",
+  "d": "tutoring",
+  "s": "Students who ask for tutoring late in the semester are usually not behind on content but behind on confidence",
+  "mine": "INSIGHT"
+ },
+ {
+  "id": "stickers",
+  "d": "custom stickers",
+  "s": "Selling stickers on Etsy is a worse business than selling them at school events, and marketplaces mostly train sellers to compete on price",
+  "mine": "POINT OF VIEW"
+ },
+ {
+  "id": "fortnite",
+  "d": "gaming",
+  "s": "Fortnite has a battle pass",
+  "mine": "FACT"
+ },
+ {
+  "id": "coffeecart",
+  "d": "coffee cart",
+  "s": "Rainy days bring fewer customers but bigger orders, because office workers send one person out to buy for the whole team",
+  "mine": "INSIGHT"
+ },
+ {
+  "id": "yardsale",
+  "d": "yard sales",
+  "s": "The good stuff at yard sales is gone by nine because the early-morning buyers are mostly resellers, not neighbors",
+  "mine": "INSIGHT"
+ },
+ {
+  "id": "phonerepair",
+  "d": "phone repair",
+  "s": "Customers who came in for a cracked screen come back for other repairs more than anyone else, because once they trust a shop with their phone they stop shopping around",
+  "mine": "INSIGHT"
+ },
+ {
+  "id": "mcrules",
+  "d": "running a Minecraft server",
+  "s": "Servers with strict building rules keep players longer than anything-goes servers, because the rules protect the stuff players spent hours building",
+  "mine": "INSIGHT"
+ },
+ {
+  "id": "detailing",
+  "d": "car detailing",
+  "s": "Big discounts bring in customers who never come back, because they picked you for the price and not the work",
+  "mine": "INSIGHT"
+ },
+ {
+  "id": "youtube",
+  "d": "YouTube channel",
+  "s": "Beginner YouTubers should ignore the algorithm completely; chasing it is the reason most small channels sound the same",
+  "mine": "POINT OF VIEW"
+ },
+ {
+  "id": "dropship",
+  "d": "teen entrepreneurship",
+  "s": "Dropshipping is a bad first business for teenagers, and schools that teach it as entrepreneurship are teaching arbitrage, not building something",
+  "mine": "POINT OF VIEW"
+ },
+ {
+  "id": "tutorpromise",
+  "d": "tutoring",
+  "s": "Tutoring companies that promise better grades are selling something they cannot deliver, because grades mostly come from effort the tutor does not control",
+  "mine": "POINT OF VIEW"
+ },
+ {
+  "id": "mcranks",
+  "d": "running a Minecraft server",
+  "s": "Selling paid ranks ruins a server; once you sell advantages, the players who stay are the ones who paid, and they stop inviting friends",
+  "mine": "POINT OF VIEW"
+ },
+ {
+  "id": "bakeryig",
+  "d": "home bakery",
+  "s": "Instagram followers are close to worthless for a home bakery; every repeat customer I have came from someone tasting a sample",
+  "mine": "POINT OF VIEW"
+ },
+ {
+  "id": "psa",
+  "d": "trading cards",
+  "s": "PSA grades cards on a 10-point scale",
+  "mine": "FACT"
+ },
+ {
+  "id": "etsyfee",
+  "d": "selling crafts online",
+  "s": "Etsy charges sellers a fee for each listing",
+  "mine": "FACT"
+ },
+ {
+  "id": "afterbell",
+  "d": "coffee cart",
+  "s": "Coffee shops near high schools get busier right after the last bell",
+  "mine": "FACT"
+ }
+]
