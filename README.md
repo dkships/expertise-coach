@@ -58,6 +58,24 @@ insight unless it also takes a side.
 | **claude-sonnet-5-5** | **adaptive, low** | **46/46** | **3.6s** | **4.9s** |
 | claude-sonnet-5 | off | 41/46 | 4.9s | 6.1s |
 
+Re-checked 2026-10-07 against claude-haiku-5-5 (about 10x cheaper per call), same
+prompt, same 23 cases x2, scored against the author labels:
+
+| Model | Thinking | Accuracy | Median | p95 | Cost per call |
+|---|---|---|---|---|---|
+| **claude-sonnet-5-5** (control) | adaptive, low | **46/46** | 4.0s | 6.2s | $0.0064 |
+| claude-haiku-5-5 | adaptive, low | 40/46 | 6.2s | 8.3s | $0.0006 |
+| claude-haiku-5-5 | adaptive, medium | 40/46 | 7.0s | 9.7s | $0.0007 |
+| claude-haiku-5-5 | adaptive, high | 42/46 | 9.5s | 15.0s | $0.0010 |
+
+Haiku answered every call and every response parsed, so this is a judgement gap, not
+a harness problem. It reads "strict rules keep players longer" as taking a side, the
+same trap the disagreement test warns about. It also thinks on almost every call, so
+it is slower despite being cheaper. A prompt clarification applied to both models
+lifted Haiku to 43/46 (low) and 44/46 (medium) and left Sonnet at 46/46. On 16 new
+held-out cases, labelled by an Opus 5.5 judge before any run, Sonnet 5.5 scored 32/32
+and Haiku 29/32 (low) and 27/32 (medium) on the current prompt. Sonnet 5.5 stays.
+
 Earlier run, 2026-09-07, on the prompt before that sentence:
 
 | Model | Thinking | Accuracy | Median | Max |
@@ -73,7 +91,8 @@ In that run, Sonnet 5 with thinking off won on both axes. Opus 5 matched it on a
 looks broken. Sonnet 4.6 was the worst option tested — slower *and* the only model to
 misread a causal reading as a position, which is exactly the distinction being taught.
 
-Thinking has to be disabled explicitly. Omitting the parameter runs adaptive on
-Sonnet 5.
+Sonnet 5.5 rejects thinking "disabled", so the route sets adaptive thinking and
+`effort: "low"` explicitly. A safety-classifier refusal returns a 422 with a plain
+message instead of a parse error.
 
 Prototype by David Kelly.

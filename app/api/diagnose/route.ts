@@ -13,6 +13,15 @@ export const maxDuration = 30;
 // skips thinking on these requests. Sonnet 5.5 rejects thinking "disabled".
 const MODEL = "claude-sonnet-5-5";
 
+// Re-checked 2026-10-07 against claude-haiku-5-5 ($0.10/$0.50 per MTok, about
+// 10x cheaper): at adaptive low/medium it scored 40/46 and 40/46 on the same
+// 23 cases x2 (Sonnet 5.5 control: 46/46), with the same misses even after a
+// prompt clarification (43/46, 44/46), and it thinks on nearly every call
+// (p50 6-7s vs 3.6-4s). Sonnet 5.5 stays. Server-side `fallbacks: "default"`
+// is deliberately not set: it only retries cyber/frontier_llm declines, which
+// a coaching prompt for teenagers' business ideas should not trigger, and it
+// needs the beta client path. Refusals are handled below instead.
+
 // A few Sonnet 5.5 calls stalled for 30-60s in testing. Fail fast with a
 // retryable error inside maxDuration instead of letting the function die.
 const CALL_TIMEOUT_MS = 12_000;
@@ -68,6 +77,18 @@ export async function POST(request: Request) {
         effort: "low",
       },
     });
+
+    // A safety-classifier decline is a normal 200 with stop_reason "refusal"
+    // and no usable content. Say so instead of reporting a parse failure.
+    if (response.stop_reason === "refusal") {
+      return NextResponse.json(
+        {
+          error:
+            "The coach could not review that statement. Try rewording it.",
+        },
+        { status: 422 },
+      );
+    }
 
     if (!response.parsed_output) {
       return NextResponse.json(
