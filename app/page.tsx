@@ -260,11 +260,29 @@ export default function Home() {
             <button
               type="submit"
               disabled={pending || !domain.trim() || !statement.trim()}
-              className="rounded-[8px] px-4 py-2.5 text-[15px] font-semibold text-white transition-opacity disabled:opacity-40"
+              aria-busy={pending}
+              className={`inline-flex items-center gap-2 rounded-[8px] px-4 py-2.5 text-[15px] font-semibold text-white transition-opacity ${
+                pending ? "" : "disabled:opacity-40"
+              }`}
               style={{ background: "var(--accent)" }}
             >
+              {pending && (
+                <span
+                  aria-hidden
+                  className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
+                />
+              )}
               {pending ? "Checking…" : "Check it"}
             </button>
+            {pending && (
+              <p
+                role="status"
+                className="text-[14px]"
+                style={{ color: "var(--ink-2)" }}
+              >
+                This takes a few seconds.
+              </p>
+            )}
             {error && (
               <p
                 role="alert"
