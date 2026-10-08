@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    # Major bumps (Tailwind 4, Next 16) need a planned migration, not an auto PR.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
