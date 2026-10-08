@@ -331,7 +331,16 @@ export default function Home() {
         className="mx-auto max-w-[620px] pb-10 pl-[50px] pr-5 text-[13px]"
         style={{ color: "var(--ink-2)" }}
       >
-        Prototype by David Kelly
+        Prototype by{" "}
+        <a
+          href="https://dmkthinks.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 hover:opacity-70"
+          style={{ color: "var(--ink)" }}
+        >
+          David Kelly
+        </a>
       </footer>
     </div>
   );
