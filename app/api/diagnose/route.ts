@@ -1,7 +1,12 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import { NextResponse } from "next/server";
-import { DiagnosisSchema } from "@/lib/diagnosis";
+import {
+  DiagnosisSchema,
+  MAX_DOMAIN_CHARS,
+  MAX_STATEMENT_CHARS,
+} from "@/lib/diagnosis";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { SYSTEM } from "@/lib/system-prompt";
 
 export const runtime = "nodejs";
@@ -26,12 +31,25 @@ const MODEL = "claude-sonnet-5-5";
 // retryable error inside maxDuration instead of letting the function die.
 const CALL_TIMEOUT_MS = 12_000;
 
+// A diagnosis is about 350 output tokens. The cap leaves room for thinking
+// while bounding what one request can cost.
+const MAX_OUTPUT_TOKENS = 2048;
+const MAX_BODY_BYTES = 8_192;
+
 export async function POST(request: Request) {
   let domain: unknown;
   let statement: unknown;
 
+  if (Number(request.headers.get("content-length") ?? 0) > MAX_BODY_BYTES) {
+    return NextResponse.json({ error: "That is too long." }, { status: 413 });
+  }
+
   try {
-    ({ domain, statement } = await request.json());
+    const raw = await request.text();
+    if (raw.length > MAX_BODY_BYTES) {
+      return NextResponse.json({ error: "That is too long." }, { status: 413 });
+    }
+    ({ domain, statement } = JSON.parse(raw));
   } catch {
     return NextResponse.json(
       { error: "Send JSON with a domain and a statement." },
@@ -51,6 +69,26 @@ export async function POST(request: Request) {
     );
   }
 
+  if (
+    domain.trim().length > MAX_DOMAIN_CHARS ||
+    statement.trim().length > MAX_STATEMENT_CHARS
+  ) {
+    return NextResponse.json(
+      {
+        error: `Keep the focus area under ${MAX_DOMAIN_CHARS} characters and the statement under ${MAX_STATEMENT_CHARS}.`,
+      },
+      { status: 413 },
+    );
+  }
+
+  const retryAfter = rateLimit(clientIp(request));
+  if (retryAfter !== null) {
+    return NextResponse.json(
+      { error: "Too many tries in a row. Wait a minute and try again." },
+      { status: 429, headers: { "Retry-After": String(retryAfter) } },
+    );
+  }
+
   if (!process.env.ANTHROPIC_API_KEY) {
     return NextResponse.json(
       { error: "ANTHROPIC_API_KEY is not set on the server." },
@@ -63,7 +101,7 @@ export async function POST(request: Request) {
   try {
     const response = await client.messages.parse({
       model: MODEL,
-      max_tokens: 4096,
+      max_tokens: MAX_OUTPUT_TOKENS,
       thinking: { type: "adaptive" },
       system: SYSTEM,
       messages: [

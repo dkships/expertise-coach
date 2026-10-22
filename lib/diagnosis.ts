@@ -1,6 +1,11 @@
 import { z } from "zod";
 
-export const LEVELS = ["FACT", "INSIGHT", "POINT OF VIEW"] as const;
+// Input caps, shared by the form and the route. The longest labelled eval
+// statement is 180 characters, so these leave plenty of room for real use.
+export const MAX_DOMAIN_CHARS = 100;
+export const MAX_STATEMENT_CHARS = 800;
+
+export const LEVELS =["FACT", "INSIGHT", "POINT OF VIEW"] as const;
 export type Level = (typeof LEVELS)[number];
 
 /** Stable teaching content. Deliberately not model-generated: the whole point of

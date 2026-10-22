@@ -2,7 +2,12 @@
 
 import { useRef, useState } from "react";
 import Ladder from "@/components/Ladder";
-import { LEVEL_COPY, type Diagnosis } from "@/lib/diagnosis";
+import {
+  LEVEL_COPY,
+  MAX_DOMAIN_CHARS,
+  MAX_STATEMENT_CHARS,
+  type Diagnosis,
+} from "@/lib/diagnosis";
 
 /** One click fills both fields and submits. Someone evaluating this should not
  *  have to invent a focus area before they can see what the thing does. */
@@ -222,6 +227,7 @@ export default function Home() {
             onChange={(e) => setDomain(e.target.value)}
             placeholder="lawn care"
             autoComplete="off"
+            maxLength={MAX_DOMAIN_CHARS}
             className="mt-1.5 w-full rounded-[8px] px-3 py-2.5 text-[15px] outline-none"
             style={{
               background: "var(--paper)",
@@ -248,6 +254,7 @@ export default function Home() {
                 : "Answer the question above in your own words"
             }
             rows={3}
+            maxLength={MAX_STATEMENT_CHARS}
             className="mt-1.5 w-full resize-y rounded-[8px] px-3 py-2.5 text-[15px] leading-[1.5] outline-none"
             style={{
               background: "var(--paper)",

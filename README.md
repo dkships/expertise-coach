@@ -36,6 +36,10 @@ student's statement, and pins the response shape with structured outputs against
 Zod schema in `lib/diagnosis.ts` — so the route returns a valid diagnosis or an
 error, never half-parsed text.
 
+Because the route spends money on a public URL, it caps input length (100 and 800
+characters), output at 2,048 tokens, and calls per visitor (6 a minute, 30 an hour)
+in `lib/rate-limit.ts`.
+
 Two decisions carry the whole thing:
 
 Worked examples must be about a **different subject** than the student's statement.
