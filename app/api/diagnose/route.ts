@@ -40,6 +40,18 @@ export async function POST(request: Request) {
   let domain: unknown;
   let statement: unknown;
 
+  // Only accept JSON. A text/plain or form POST is a "simple" cross-origin
+  // request, so any other site could make its visitors' browsers spend this
+  // key without a CORS preflight. Requiring application/json forces the
+  // preflight, which fails because this route sends no CORS headers.
+  const contentType = request.headers.get("content-type") ?? "";
+  if (!/^application\/json\s*(;|$)/i.test(contentType)) {
+    return NextResponse.json(
+      { error: "Send JSON with a domain and a statement." },
+      { status: 415 },
+    );
+  }
+
   if (Number(request.headers.get("content-length") ?? 0) > MAX_BODY_BYTES) {
     return NextResponse.json({ error: "That is too long." }, { status: 413 });
   }
